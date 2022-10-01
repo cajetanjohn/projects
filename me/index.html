@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <style id="styles">
+      .key{color:red;}
+      
+    </style>
+    <pre id="styles-text"></pre>
+    <pre id="text"></pre>
+    <pre  style="display:none;" id="unwanted"></pre>
+    <div style="display:noe;" id="control">
+      <button onclick="end()" id="skip">SKIP</button> 
+      <button id="pause">PAUSE</button>
+  </div>
+  <pre id="contact"></pre>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript">
+      window.onload=function start(){
+        text = `
+/
+ * heyyyyy, hello... %
+ * I'm cajetan...well Cajetan John,
+ * a programmer, like what you are looking for, or doing, or learning.
+ * Well am here coding my time away...you can sit down and watch a few tricks.
+ * How about this...Lets start by animating.
+ * /
+ #styles-text{
+    position: absolute; overflow: auto;
+    right: 10px; top:0; width: 35%; height:95vh; 
+    border:1px solid lightgrey;
+    background-color:rgba(111,111,111); color:white;
+  }
+  #text{
+    left: 0; top:0; padding:5px;
+    height:95vh; width: 60%;
+    background-color: none;
+  }
+  
+  #styles-text::after, #text::after {
+    background-color: black;
+    width: 2px;
+    height: 16px;
+    content: "";
+    position: absolute;
+    animation: blink 1s infinite ease normal both;
+    margin:0px 0px 0px 5px;
+    opacity: 0;
+  }
+  @keyframes blink {
+    50%{opacity:1;}   
+  }
+  /
+ * 
+ * well how is that...Not much but just for the start.
+ * let me make it more readable for you.
+ * /
+   body *{
+    font-size: 13px; line-height: 1.4;
+    -webkit-font-smoothing: subpixel-antialiased;
+    text-shadow: 0px 0px 1px black;
+    transition: all .4s;
+  }
+ * /
+ * 
+ * Damn!... That didnt turn out as expected.
+ * A second try =>
+ * /
+   body{background-color:#75715e; overflow:hidden;}
+
+  *{text-shadow: none !important;}
+  #text{ color:white;}
+ */
+ * 
+ * there perfect. Now you know what this page is all about.
+ * 
+ * Just like how the supreme beign commanded at everything appeared, I also command thee website.
+ * "Let there be..."
+ * 
+ * "And he - Cajetan, looked at his creation and saw it was beautiful.."
+ * Enough with all that... I'm here to tell about myself,so lets get onto that.
+ * you could also skip all of this right here.
+ * /
+ * #control{
+            display: inline-block !important;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            outline: none;
+            padding: 5px;
+        }
+        #control *{
+            border: 1px solid grey;
+            background: none;
+            color: #262626;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+ */
+ * 
+ * There thats me
+ * if you want to reach me you could just email me at the contact section
+ * /
+   #styles-text { height:70vh;}  
+   #contact{
+    position:absolute;
+    right:10px; bottom:10px;
+    border:1px solid black;
+    width:35%; height:15vh;
+    color:#262626;
+   }
+ * /
+ * 
+ * or you can use the pgp key here 
+ * Umm guess am done. hope you are impressed.
+ * ohh and just to mention Thanks to Samuel reed and Jake albough from whom I took the inspiration to do this
+ * ADIOS!
+ *
+ *`
+        comments = true;
+        var place, pre, time;
+        //looping through the "text"      
+        /*for (let index = 0; index < text.length; index++) {
+            letter = text[index];
+            type(letter, index);   
+        }
+        */
+       function end(text, skip){
+        for (let index = 0; index < text.length; index++) {
+            letter = text[index];
+            type(letter, 0);
+       }}
+       function loop(text, index, time) {
+          if (index < text.length) {
+            letter = text[index++];
+            //to pause writing once a comma or fullstop is reached(identified by %)
+            time = (letter.match("%") && comments === false) ? 1000 : 0 /*60*/;
+            type(letter, 0); 
+            return delay = setTimeout(()=> {return loop(text, index);}, time);
+          }
+        };
+        //typing the text into html elements
+        function type(letter, time){  
+          pre = document.getElementById('styles-text');
+          pre.scrollTop = pre.scrollHeight;                 
+          setTimeout(()=>{
+            if (letter.match("/") && comments === true ){
+              comments = false;place = $('#text');styles = $('#unwanted');this.replace('/', ''); 
+              text = place.html() + letter;
+            } else if(letter.match("/") && comments === false){
+              comments = true;place = $('#styles-text');styles = $('#styles');this.replace('/','');
+              text = place.html() + letter;
+            } 
+            if (letter.match("%") && comments === false){
+              replace("%","");             
+            }
+            var audio = new Audio('keybord_typing.mp3');
+            
+            place.append(letter);
+            styles.append(letter);                       
+            },time)              
+        }   
+        loop(text,0)  
+      }
+
+    </script>
+
+  </body>
+</html>
